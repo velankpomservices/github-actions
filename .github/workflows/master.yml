@@ -2,7 +2,8 @@ on:
   push:
     branches:
       - master
-name: 🚀 Deploy website on push
+# name: 🚀 Deploy website on push
+name: FTP-Deploy-Action
 jobs:
   web-deploy:
     name: 🎉 Deploy
@@ -14,7 +15,11 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: diybuilder.in
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: /public_html/master.watch.com/
+        # server: diybuilder.in
+        # username: ${{ secrets.FTP_USERNAME }}
+        # password: ${{ secrets.FTP_PASSWORD }}
+        # server-dir: /public_html/master.watch.com/
+        ftp-server: ${{ secrets.FTP_SERVER }}
+        ftp-username: ${{ secrets.FTP_USERNAME }}
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: toupload
