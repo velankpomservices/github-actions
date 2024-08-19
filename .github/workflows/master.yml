@@ -1,25 +1,21 @@
-on: 
+on:
   push:
     branches:
       - master
-# name: 🚀 Deploy website on push
-name: FTP-Deploy-Action
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        # server: diybuilder.in
-        # username: ${{ secrets.FTP_USERNAME }}
-        # password: ${{ secrets.FTP_PASSWORD }}
-        # server-dir: /public_html/master.watch.com/
-        ftp-server: ${{ secrets.FTP_SERVER }}
-        ftp-username: ${{ secrets.FTP_USERNAME }}
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: toupload
+    deploy_job:
+      runs-on: ubuntu-latest
+      name: deploy
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Deploy file
+          uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+          with:
+            username: ${{ secrets.FTP_USERNAME }}
+            password: ${{ secrets.FTP_PASSWORD }}
+            server: ${{ secrets.FTP_SERVER }}
+            port: ${{ secrets.FTP_PORT }}
+            remote_path: '/domains/diybuilder.in/public_html/VisPlannerWhiteboard'
+            sftp_only: true
